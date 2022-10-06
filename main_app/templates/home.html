@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coins-Home</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+    <div class="home__categories">
+        {% for category in categories%}
+            <div class="category mb-5">
+                <h3 class="title is-3 has-text-success">{{category.title}}</h3>
+                <hr />
+
+                {% for coin in category.coins.all %}
+                <div class="coin">
+                    <span>{{forloop.counter}}</span>
+                    <span>{{coin.name}}</b></span>
+                    <span>{{coin.year}}</b></span>
+                    <span>{{coin.origin}}</b></span>
+                    <span>
+                        <a href="{% url 'category_coin_assoc' category.pk coin.pk%}?assoc=remove" class="button is-danger is-outlined">
+                            <span class="icon is-small">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </a>
+                    </span>
+                </div>
+                {% endfor%}
+            </div>
+        {% empty %}
+            <div class="category mb-5">Catetory {{category.title }} is empty
+            </div>
+        {% endfor %}
+    {% endblock %}
+    </div>
+</body>
+</html>
